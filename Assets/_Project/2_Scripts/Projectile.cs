@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float _flyTime = 1f;
     [SerializeField] private AnimationCurve _trajectoryCurve; // configure height of trajectory 
 
-    public IEnumerator FlyToTarget(Unit target)
+    private ProjectileVFX _vfx;
+
+    private void Awake()
+    {
+        _vfx = GetComponent<ProjectileVFX>();
+    }
+
+    public IEnumerator FlyToTarget(Unit target, float flyTime = 1f)
     {
         Vector2 startPos = transform.position;
         Vector2 endPos = target.transform.position;
@@ -16,7 +22,7 @@ public class Projectile : MonoBehaviour
         while (t < 1f)
         {
             _timeElapsed += Time.deltaTime;
-            t = _timeElapsed / _flyTime;
+            t = _timeElapsed / flyTime;
 
             Vector2 pos = Vector2.Lerp(startPos, endPos, t);
             pos.y += _trajectoryCurve.Evaluate(t);
@@ -26,7 +32,7 @@ public class Projectile : MonoBehaviour
         }
 
         transform.position = endPos;
-        // HitTarget(target.health, damage);
+        _vfx.OnHitEffects(transform.position);
         yield break;
     }
 

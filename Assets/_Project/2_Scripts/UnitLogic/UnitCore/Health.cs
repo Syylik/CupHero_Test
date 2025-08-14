@@ -7,6 +7,9 @@ public abstract class Health : MonoBehaviour
     public float HealthValue => _health;
     private float _maxHealth;
 
+    // :( weirdest thing i do ever
+    [SerializeField] private DamageTextEffect _damageEffect;
+
     public UnityEvent<float, float> OnHealthChanged;
     public UnityEvent OnDie;
 
@@ -22,6 +25,7 @@ public abstract class Health : MonoBehaviour
         if (isDead) return false;
         _health -= damage;
         OnHealthChanged?.Invoke(_health, _maxHealth);
+        SpawnDamageEffect(damage);
         if (_health <= 0)
         {
             _health = 0;
@@ -45,4 +49,6 @@ public abstract class Health : MonoBehaviour
 
         OnHealthChanged?.Invoke(_health, _maxHealth);
     }
+
+    private void SpawnDamageEffect(float damage) => Instantiate(_damageEffect, transform.position, Quaternion.identity).Init(damage);
 }

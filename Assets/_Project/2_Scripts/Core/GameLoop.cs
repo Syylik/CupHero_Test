@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameLoop : MonoBehaviour
 {
     [SerializeField] private PlayerAnimation _playerAnim;
     [SerializeField] private BattleLoop _battleLoop;
+    [SerializeField] private CardPurchase _cardPurchase;
     [SerializeField] private GameOverManager _gameOverManager;
     [SerializeField] private BackgroundScroller _bgScroller;
+
+    public Action OnRewarded;
 
     private void Start() => StartCoroutine(WalkToWave());
 
@@ -27,7 +32,7 @@ public class GameLoop : MonoBehaviour
         _bgScroller.isScrolling = false;
         yield return _battleLoop.StartCoroutine(_battleLoop.BattleRoutine());
 
-        // Reward
+        yield return _cardPurchase.StartCoroutine(_cardPurchase.ChoseReward());
 
         StartCoroutine(WalkToWave());
     }

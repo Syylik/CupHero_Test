@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 2
+  _attackSpeed: 1.8
   _projectile: {fileID: 6909843840929170230, guid: 5c5f6c7594361b703807ca3219a467a5, type: 3}
   _shootPoint: {fileID: 6953610159716184486}
 --- !u!114 &6842432132476902104
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 5
+  _damageEffect: {fileID: 4202509510367352480, guid: b15a21bfdd59fc8c79f5e899aca46aca, type: 3}
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -74,6 +76,7 @@ MonoBehaviour:
       m_Calls: []
   _healthBar:
     _healthBar: {fileID: 8386687024719849498}
+  _drop: {fileID: 2682966076098522253, guid: 3437b2c4b3a87aceeae8659082dd53e7, type: 3}
 --- !u!212 &3561424685338850216
 SpriteRenderer:
   m_ObjectHideFlags: 0
